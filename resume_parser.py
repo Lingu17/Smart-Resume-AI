@@ -14,11 +14,7 @@ load_dotenv()
 # Get API key
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Initialize Groq client
-client = Groq(api_key=GROQ_API_KEY)
-
-
-def parse_resume(file_path):
+def parse_resume(client, file_path):
 
     text = ""
 

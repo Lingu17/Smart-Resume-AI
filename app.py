@@ -1,20 +1,14 @@
 from flask import Flask, render_template, request, jsonify
-
-
-app = Flask(__name__)
-# Smart Resume AI
-# Created by Lingraj Malipatil
 import os
+from dotenv import load_dotenv
 from groq import Groq
 from werkzeug.utils import secure_filename
 from resume_parser import parse_resume
 
+load_dotenv()
 app = Flask(__name__)
+
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
-client = Groq(api_key=GROQ_API_KEY)
-
-
 if not GROQ_API_KEY:
     print("Warning: GROQ_API_KEY not set. Chat will not work.")
 client = Groq(api_key=GROQ_API_KEY)
@@ -37,7 +31,7 @@ def upload():
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(filepath)
     
-    data = parse_resume(filepath)
+    data = parse_resume(client, filepath)
     return render_template("index.html", result=data)
 
 @app.route("/chat", methods=["POST"])
@@ -58,4 +52,5 @@ def chat():
         return jsonify({"reply": f"Error: {str(e)}. Make sure GROQ_API_KEY is set."})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
