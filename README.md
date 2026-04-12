@@ -140,6 +140,14 @@ http://127.0.0.1:5000
 
 Upload a resume and receive **AI-generated suggestions to improve the resume.**
 
+<img width="1916" height="976" alt="Screenshot 2026-04-12 220427" src="https://github.com/user-attachments/assets/d3713a2e-5ef1-46b4-8e42-a1ae2702bedc" />
+
+<img width="1887" height="960" alt="Screenshot 2026-04-12 215605" src="https://github.com/user-attachments/assets/c1160ef2-0979-406e-8304-ad834064b85a" /> 
+
+<img width="1881" height="958" alt="Screenshot 2026-04-12 215614" src="https://github.com/user-attachments/assets/b9596d4e-af04-4928-847a-b03b7f2f1206" />
+
+
+
 ---
 
 # 🚀 Future Improvements
