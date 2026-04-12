@@ -25,7 +25,10 @@ The system extracts resume content, evaluates skills, detects missing keywords, 
 4. Suggestions and improvements are generated
 
 ---
-
+#Check out on Live 
+---
+https://smart-resume-ai-1-vr5g.onrender.com/
+---
 # 🛠 Tech Stack
 
 ### Frontend
