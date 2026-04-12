@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Resume AI - by Lingraj Malipatil</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <h3>Analyzing Resume...</h3>
+        <p style="color: #94a3b8;">Extracting skills and finding the perfect role</p>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            </div>
+        </div><center><h1>Smart Resume AI <span style="font-size:0.7em; opacity:0.8; color:var(--primary);"></span></h1>
+            <p>AI-powered Resume Analyzer & Interactive Career Coach</p></center>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-card glass">
+            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                <h3 style="margin-bottom: 20px;"><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary);"></i> Upload your Resume</h3>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <div class="file-input-wrapper">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="fa-solid fa-file-pdf"></i> Choose File (PDF/DOCX)
+                        </button>
+                        <input type="file" name="resume" accept=".pdf,.docx" id="fileInput" required>
+                    </div>
+
+                    <span id="fileNameDisplay" style="align-self: center; font-size: 0.9rem; color: #94a3b8;">No file selected</span>
+
+                    <button type="submit" class="btn">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Resume
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if result %}
+        <div class="layout-grid">
+
+            <!-- Left Column: Resume Insights -->
+            <div class="result-card glass">
+                <h2 class="section-title"><i class="fa-solid fa-chart-pie"></i> Resume Insights</h2>
+
+                <!-- Info Grid -->
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h3><i class="fa-solid fa-user"></i> Name</h3>
+                        <p>{{ result.name or "Not found" }}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3><i class="fa-solid fa-envelope"></i> Email</h3>
+                        <p style="font-size: 1rem; word-break: break-all;">{{ result.email or "Not found" }}</p>
+                    </div>
+
+                    <div class="info-box highlight-box">
+                        <h3><i class="fa-solid fa-briefcase"></i> Best Job Role</h3>
+                        <p>{{ result.best_job_role or (result.job_matches[0][0] if result.job_matches else "No match found") }}</p>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <h3 class="section-title"><i class="fa-solid fa-brain"></i> Skills Detected</h3>
+                <div class="skills">
+                    {% if result.skills %}
+                    {% for skill in result.skills %}
+                    <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                    {% else %}
+                    <p style="color: #94a3b8;">No skills detected</p>
+                    {% endif %}
+                </div>
+
+                <!-- Job Matches -->
+<h3 class="section-title"><i class="fa-solid fa-bullseye"></i> Top 5 Job Matches</h3>
+                <div class="job-matches">
+                    {% if result.job_matches %}
+                    {% for job, score in result.job_matches %}
+                    <div class="progress-box">
+                        <p>{{ job }} <span>{{ score }}%</span></p>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 0%;" data-target="{{ score }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p style="color: #94a3b8;">No job matches found</p>
+                    {% endif %}
+                </div>
+
+                <!-- AI Feedback -->
+                <h3 class="section-title"><i class="fa-solid fa-star"></i> ATS Score & Improvement Suggestions</h3>
+
+                <!-- ATS Score Badge -->
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, rgba(0, 245, 160, 0.2), rgba(99, 102, 241, 0.2)); padding: 15px 25px; border-radius: 50px; border: 1px solid var(--primary);">
+                        <i class="fa-solid fa-gauge-high" style="font-size: 1.5rem; color: var(--primary);"></i>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(to right, var(--primary), #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ result.ats_score if result.ats_score else 0 }}%</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">ATS Score</div>
+                        </div>
+                    </div>
+                </div>
+                {% if result.ai_feedback and "Error" not in result.ai_feedback %}
+                <div class="ai-feedback">{{ result.ai_feedback }}</div>
+                {% else %}
+                <p style="color: #ffcccb; background: rgba(255,0,0,0.1); padding: 10px; border-radius: 8px;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> AI analysis not available.
+                </p>
+                {% endif %}
+            </div>
+
+            <!-- Right Column: Interactive Chatbot -->
+            <div class="chat-container glass">
+                <div class="chat-header">
+                    <div class="status-dot"></div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.1rem;">Career Coach AI</h3>
+                        <span style="font-size: 0.8rem; color: #94a3b8;">Online | Powered by Groq</span>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatBox">
+                    <div class="message msg-ai">
+                        Hi {{ (result.name or "there").split()[0] }}! I've analyzed your resume. I see you're a great fit for <strong>{{ result.best_job_role or "your field" }}</strong>. Want to talk about how to improve your resume, practice interview questions, or explore other roles? Just ask!
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Ask anything about your career...">
+                    <button class="btn" id="sendBtn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // File Input Name Display
+        const fileInput = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (fileInput) {
+            fileInput.addEventListener('change', function (e) {
+                if (e.target.files.length > 0) {
+                    fileNameDisplay.textContent = e.target.files[0].name;
+                    fileNameDisplay.style.color = '#fff';
+                }
+            });
+        }
+
+        // Loading Overlay Trigger
+        const uploadForm = document.getElementById('uploadForm');
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', function () {
+                document.getElementById('loader').style.display = 'flex';
+            });
+        }
+
+        // Animate Progress Bars
+        document.addEventListener("DOMContentLoaded", function () {
+            const bars = document.querySelectorAll('.progress-bar');
+            setTimeout(() => {
+                bars.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-target');
+                });
+            }, 300); // slight delay for smooth entry
+        });
+
+        // Chatbot Logic
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+            chatInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chatBox = document.getElementById('chatBox');
+
+            // Add User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message msg-user';
+            userMsg.innerText = text;
+            chatBox.appendChild(userMsg);
+
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Add Loading AI Bubble
+            const aiLoading = document.createElement('div');
+            aiLoading.className = 'message msg-ai';
+            aiLoading.innerHTML = '<i class="fa-solid fa-ellipsis fa-fade"></i> Thinking...';
+            chatBox.appendChild(aiLoading);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                const data = await response.json();
+
+                // Replace loading with real response
+                aiLoading.innerText = data.reply;
+            } catch (error) {
+                aiLoading.innerText = 'Error connecting to the AI agent. Please try again.';
+                aiLoading.style.color = '#ffcccb';
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+</script>
+
+    <!-- Footer by Lingraj Malipatil -->
+    <footer class="glass" style="text-align:center; padding:25px 20px; margin:20px; border-top:1px solid var(--card-border);">
+        <p>&copy; 2026 Smart Resume AI <span style="color:var(--primary); font-weight:600;">by Lingraj Malipatil</span></p>
+    </footer>
+</body>
+
+</html>
