@@ -1,4 +1,4 @@
-🚀 Smart Resume AI
+#🚀 Smart Resume AI
 
 Smart Resume AI is an AI-powered web application that analyzes resumes and provides intelligent feedback to help job seekers improve their chances of getting hired.
 
@@ -18,12 +18,12 @@ The system extracts resume content, evaluates skills, detects missing keywords, 
 3️⃣ AI analyzes the resume content
 4️⃣ Suggestions and improvements are generated
 
-🛠 Tech Stack
-Frontend
+## 🛠 Tech Stack
+###Frontend
 HTML
 CSS
 JavaScript
-Backend
+###Backend
 Python
 Flask
 AI Integration
@@ -32,7 +32,7 @@ Libraries
 pdfplumber
 python-docx
 python-dotenv
-📂 Project Structure
+##📂 Project Structure
 Smart-Resume-AI
 │
 ├── app.py
@@ -46,30 +46,30 @@ Smart-Resume-AI
 ├── uploads/
 ├── .gitignore
 └── README.md
-⚙️ Installation
+#⚙️ Installation
 
-Clone the repository
+##Clone the repository
 
 git clone https://github.com/Lingu17/Smart-Resume-AI.git
 
-Navigate to the project directory
+##Navigate to the project directory
 
 cd Smart-Resume-AI
 
-Create virtual environment
+##Create virtual environment
 
 python -m venv venv
 
-Activate environment
+##Activate environment
 
 Windows
 
 venv\Scripts\activate
 
-Install dependencies
+##Install dependencies
 
 pip install -r requirements.txt
-🔑 Environment Variables
+##🔑 Environment Variables
 
 Create a .env file in the project root:
 
@@ -82,11 +82,11 @@ Open in browser
 http://127.0.0.1:5000
 📸 Demo
 
-Upload a resume and receive AI-generated suggestions to improve the resume.
+## Upload a resume and receive AI-generated suggestions to improve the resume.
 
-(You can add screenshots here later)
 
-🚀 Future Improvements
+
+## 🚀 Future Improvements
 ATS Resume Score
 AI Interview Question Generator
 Resume Keyword Optimization
@@ -96,5 +96,5 @@ LinkedIn Profile Analyzer
 
 Lingraj Malipatil
 
-GitHub
+## GitHub
 https://github.com/Lingu17
