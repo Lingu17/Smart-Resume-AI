@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
+
+app = Flask(__name__)
 # Smart Resume AI
 # Created by Lingraj Malipatil
 import os
@@ -56,5 +58,4 @@ def chat():
         return jsonify({"reply": f"Error: {str(e)}. Make sure GROQ_API_KEY is set."})
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=10000)
