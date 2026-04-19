@@ -143,11 +143,16 @@ http://127.0.0.1:5000
 
 Upload a resume and receive **AI-generated suggestions to improve the resume.**
 
-<img width="1916" height="976" alt="Screenshot 2026-04-12 220427" src="https://github.com/user-attachments/assets/d3713a2e-5ef1-46b4-8e42-a1ae2702bedc" />
 
-<img width="1887" height="960" alt="Screenshot 2026-04-12 215605" src="https://github.com/user-attachments/assets/c1160ef2-0979-406e-8304-ad834064b85a" /> 
+<img width="1919" height="972" alt="Screenshot 2026-04-20 023849" src="https://github.com/user-attachments/assets/2549243e-fb04-40e9-986d-fa835eabf745" />
+<img width="1919" height="973" alt="Screenshot 2026-04-20 023758" src="https://github.com/user-attachments/assets/eef4b08e-daec-4fdc-a606-e17b70eeff28" />
+<img width="1919" height="972" alt="Screenshot 2026-04-20 023813" src="https://github.com/user-attachments/assets/e65fd7e5-fb5a-4221-8abe-c19ec97d5fd9" />
+<img width="1912" height="885" alt="Screenshot 2026-04-20 023826" src="https://github.com/user-attachments/assets/2ef52f7f-dbb9-41eb-aac4-8ea838521809" />
 
-<img width="1881" height="958" alt="Screenshot 2026-04-12 215614" src="https://github.com/user-attachments/assets/b9596d4e-af04-4928-847a-b03b7f2f1206" />
+
+
+
+
 
 
 
